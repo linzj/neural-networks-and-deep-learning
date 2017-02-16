@@ -83,7 +83,7 @@ def main(unused_args):
     training_data, validation_data, test_data = my_load_data()
     feature_columns = learn.infer_real_valued_columns_from_input(
         training_data.images)
-    classifier = learn.DNNClassifier([1000, 100], feature_columns, model_dir=None, n_classes=10, optimizer=tf.train.FtrlOptimizer(0.3), activation_fn=nn.sigmoid, dropout=None)
+    classifier = learn.DNNClassifier([100], feature_columns, model_dir=None, n_classes=10, optimizer=tf.train.FtrlOptimizer(0.3, l2_regularization_strength=0.1), activation_fn=nn.sigmoid, dropout=0.2)
 
     for epochs in range(30):
         estimator.SKCompat(classifier).fit(training_data.images,
