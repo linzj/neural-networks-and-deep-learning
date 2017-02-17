@@ -134,11 +134,10 @@ def nonconv(training_data, validation_data, test_data):
         training_data.images)
     classifier = learn.DNNClassifier([100], feature_columns, model_dir=None, n_classes=10, optimizer=tf.train.FtrlOptimizer(0.3, l2_regularization_strength=0.1), activation_fn=nn.sigmoid, dropout=0.2)
 
-    for epochs in range(30):
-        estimator.SKCompat(classifier).fit(training_data.images,
-                       training_data.labels.astype(np.int32),
-                       batch_size=10,
-                       steps=len(training_data.images) / 10)
+    estimator.SKCompat(classifier).fit(training_data.images,
+                   training_data.labels.astype(np.int32),
+                   batch_size=10,
+                   steps=200000)
     mytuple = (test_data.labels,
                                    list(classifier.predict(test_data.images)))
     score = metrics.accuracy_score(*mytuple)
